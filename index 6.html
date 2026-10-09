@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NaughtyList — Discover Premium Verified Creators</title>
+<meta name="description" content="Join 50,000+ members on NaughtyList. The most curated directory of authentic, ID-verified creators. 100% free to browse." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+:root {
+  --bg: #07050a;
+  --bg-2: #0c0810;
+  --surface: #110a14;
+  --surface-2: #170d18;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(236, 72, 153, 0.25);
+  --text: #fdf2f8;
+  --text-dim: rgba(253, 242, 248, 0.62);
+  --text-mute: rgba(253, 242, 248, 0.45);
+  --primary: #ec4899;
+  --primary-2: #f472b6;
+  --primary-deep: #be185d;
+  --rose: #fb7185;
+  --green: #34d399;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { background: var(--bg); }
+body {
+  color: var(--text);
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+::selection { background: var(--primary); color: #fff; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+.serif-italic {
+  font-family: "Instrument Serif", "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+.container-narrow { max-width: 1024px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== Backgrounds ===== */
+.ambient-bg {
+  position: fixed; inset: 0; z-index: -2;
+  background:
+    radial-gradient(900px 600px at 8% -10%, rgba(236, 72, 153, 0.22) 0%, transparent 60%),
+    radial-gradient(700px 500px at 95% 10%, rgba(190, 24, 93, 0.18) 0%, transparent 60%),
+    radial-gradient(900px 700px at 50% 100%, rgba(244, 114, 182, 0.12) 0%, transparent 60%),
+    var(--bg);
+  animation: bgShift 18s ease-in-out infinite alternate;
+}
+@keyframes bgShift {
+  0% { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(-2%,1%,0) scale(1.05); }
+}
+.grain {
+  position: fixed; inset: 0; z-index: -1;
+  pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 0.45 0 0 0 0 0.7 0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ===== Header ===== */
+.header-premium {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  background: rgba(7,5,10,0.55);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid transparent;
+  transition: all 0.4s ease;
+}
+.header-premium.is-shrunk {
+  background: rgba(7,5,10,0.85);
+  border-bottom: 1px solid var(--line-strong);
+  box-shadow: 0 10px 40px -20px rgba(236,72,153,0.4);
+}
+.header-inner {
+  max-width: 1280px; margin: 0 auto;
+  height: 64px; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-mark {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px rgba(236,72,153,0.45), inset 0 0 0 1px rgba(255,255,255,0.15);
+  color: #fff;
+}
+.logo-text { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
+.nav-links { display: none; gap: 28px; align-items: center; }
+@media (min-width: 768px) { .nav-links { display: flex; } }
+.nav-link {
+  font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500;
+  position: relative; transition: color 0.25s ease;
+}
+.nav-link::after {
+  content: ""; position: absolute; left: 0; bottom: -6px;
+  width: 0; height: 1px; background: var(--primary); transition: width 0.3s;
+}
+.nav-link:hover { color: #fff; }
+.nav-link:hover::after { width: 100%; }
+
+/* ===== Buttons ===== */
+.btn-premium {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  color: #fff; padding: 11px 22px; border-radius: 999px;
+  font-weight: 600; font-size: 0.9rem;
+  position: relative; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 8px 24px -6px rgba(236,72,153,0.55);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-premium::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+  transform: translateX(-100%); transition: transform 0.7s ease;
+}
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset, 0 14px 36px -8px rgba(236,72,153,0.7);
+}
+.btn-premium:hover::before { transform: translateX(100%); }
+.btn-premium.btn-lg { padding: 16px 30px; font-size: 1.02rem; }
+.btn-premium.btn-xl { padding: 18px 36px; font-size: 1.1rem; }
+.btn-premium svg { width: 16px; height: 16px; margin-left: 4px; }
+.btn-premium.btn-lg svg, .btn-premium.btn-xl svg { width: 18px; height: 18px; }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; padding: 14px 22px;
+  border-radius: 999px; font-weight: 600; font-size: 0.95rem;
+  color: var(--text); border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.02); transition: all 0.25s;
+}
+.btn-ghost:hover {
+  border-color: var(--primary); color: var(--primary-2);
+  background: rgba(236,72,153,0.08);
+}
+
+/* ===== Hero ===== */
+.hero-premium {
+  padding: 130px 20px 60px;
+  text-align: center; position: relative;
+  max-width: 980px; margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 500;
+  color: rgba(253,242,248,0.78);
+  background: rgba(236,72,153,0.08);
+  border: 1px solid rgba(236,72,153,0.22);
+  margin-bottom: 22px;
+  animation: fadeUp 0.8s ease-out;
+}
+.dot-live {
+  display: inline-block; width: 7px; height: 7px;
+  background: var(--green); border-radius: 50%;
+  box-shadow: 0 0 8px var(--green);
+  animation: blink 1.6s infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+.hero-title {
+  font-size: clamp(2.6rem, 6.6vw, 5.4rem);
+  font-weight: 700; line-height: 0.98;
+  letter-spacing: -0.04em; margin-bottom: 22px;
+  animation: fadeUp 0.9s ease-out 0.1s both;
+}
+.hero-title .serif-italic { font-size: 1.04em; }
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #fbcfe8 40%, var(--primary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-cursor {
+  display: inline-block; width: 4px; height: 0.85em;
+  background: var(--primary); margin-left: 6px;
+  vertical-align: -0.05em; border-radius: 2px;
+  animation: caret 1s steps(2) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+.hero-subtitle {
+  color: var(--text-dim); max-width: 620px;
+  margin: 0 auto 30px; font-size: 1.08rem; line-height: 1.55;
+  animation: fadeUp 1s ease-out 0.25s both;
+}
+.hero-cta-row {
+  display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 12px; margin-bottom: 36px;
+  animation: fadeUp 1s ease-out 0.4s both;
+}
+.hero-trust {
+  display: inline-flex; align-items: center; gap: 14px; margin-bottom: 30px;
+  animation: fadeUp 1s ease-out 0.5s both;
+}
+.avatars { display: flex; }
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--bg); margin-left: -10px;
+  object-fit: cover; background: var(--surface);
+}
+.avatar:first-child { margin-left: 0; }
+.trust-text {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 4px; text-align: left;
+}
+.stars { display: inline-flex; gap: 2px; }
+.stars svg { width: 14px; height: 14px; fill: var(--primary-2); color: var(--primary-2); }
+.trust-meta { font-size: 0.78rem; color: var(--text-dim); }
+.trust-meta b { color: var(--text); font-weight: 700; }
+
+.hero-stats {
+  display: inline-flex; align-items: center; gap: 18px;
+  padding: 14px 22px; border-radius: 18px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  animation: fadeUp 1s ease-out 0.6s both;
+}
+.stat { display: flex; flex-direction: column; align-items: center; min-width: 72px; }
+.stat-value {
+  font-size: 1.45rem; font-weight: 700;
+  letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 6px;
+}
+.stat-label {
+  font-size: 0.74rem; color: var(--text-mute);
+  margin-top: 2px; letter-spacing: 0.02em; text-transform: uppercase;
+}
+.stat-sep { width: 1px; height: 28px; background: var(--line); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Filter bar ===== */
+.filter-bar {
+  display: flex; gap: 8px; padding: 8px;
+  margin: 30px 0 28px;
+  overflow-x: auto;
+  background: rgba(17,10,20,0.7);
+  border: 1px solid var(--line); border-radius: 16px;
+  backdrop-filter: blur(14px);
+  position: sticky; top: 76px; z-index: 90;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-chip {
+  padding: 9px 18px; border-radius: 10px;
+  background: transparent; color: var(--text-dim);
+  border: 1px solid transparent;
+  font-size: 0.85rem; font-weight: 600;
+  white-space: nowrap; cursor: pointer; transition: all 0.25s;
+}
+.filter-chip:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.filter-chip.active {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  color: #fff; box-shadow: 0 6px 18px -6px rgba(236,72,153,0.7);
+}
+
+/* ===== Grid ===== */
+.grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1280px) { .grid { grid-template-columns: repeat(5, 1fr); } }
+
+.card-premium {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden; position: relative;
+  opacity: 0; transform: translateY(20px);
+  animation: cardIn 0.6s ease-out forwards;
+  transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1), border-color 0.3s, box-shadow 0.3s;
+}
+@keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+.card-premium:hover {
+  transform: translateY(-6px);
+  border-color: rgba(236,72,153,0.45);
+  box-shadow: 0 20px 50px -15px rgba(0,0,0,0.6),
+              0 0 0 1px rgba(236,72,153,0.15),
+              0 0 60px -20px rgba(236,72,153,0.45);
+}
+.card-image-wrapper {
+  position: relative; aspect-ratio: 3/4;
+  background: #1a0d18; overflow: hidden;
+}
+.card-image {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.2,0.8,0.2,1);
+}
+.card-premium:hover .card-image { transform: scale(1.07); }
+.card-image-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(7,5,10,0.85) 100%);
+  display: flex; align-items: flex-end; justify-content: center; padding: 16px;
+  opacity: 0; transition: opacity 0.3s;
+}
+.card-premium:hover .card-image-overlay { opacity: 1; }
+.overlay-cta {
+  background: rgba(255,255,255,0.95); color: #0a060c;
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 0.8rem; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 4px;
+  transform: translateY(8px); transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+}
+.overlay-cta svg { width: 14px; height: 14px; }
+.card-premium:hover .overlay-cta { transform: translateY(0); }
+
+.badge-top {
+  position: absolute; top: 10px; left: 10px;
+  padding: 5px 10px 5px 8px; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 700;
+  background: rgba(7,5,10,0.75); color: #fff;
+  z-index: 5; display: inline-flex; align-items: center; gap: 6px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.badge-side {
+  position: absolute; top: 10px; right: 10px;
+  padding: 5px 10px; border-radius: 999px;
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  z-index: 5; box-shadow: 0 4px 12px -2px rgba(236,72,153,0.55);
+}
+
+.card-content { padding: 16px 16px 18px; }
+.card-name {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 1.02rem; font-weight: 700; letter-spacing: -0.02em;
+}
+.card-age { color: var(--text-mute); font-weight: 500; font-size: 0.9rem; }
+.verified-badge { display: inline-flex; align-items: center; }
+.verified-badge svg {
+  width: 16px; height: 16px; fill: var(--primary);
+  filter: drop-shadow(0 0 4px rgba(236,72,153,0.45));
+}
+.card-location {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.78rem; color: var(--text-mute);
+  margin: 4px 0 12px;
+}
+.card-location svg { width: 13px; height: 13px; }
+.card-tags {
+  display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px;
+}
+.tag {
+  font-size: 0.68rem; font-weight: 600;
+  padding: 4px 10px; border-radius: 999px;
+  color: rgba(244,114,182,0.95);
+  background: rgba(236,72,153,0.1);
+  border: 1px solid rgba(236,72,153,0.18);
+}
+.message-btn {
+  width: 100%; display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 10px; border-radius: 12px;
+  font-weight: 600; font-size: 0.85rem; color: #fff;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer; transition: all 0.25s;
+}
+.message-btn svg { width: 14px; height: 14px; }
+.card-premium:hover .message-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  border-color: transparent;
+  box-shadow: 0 6px 18px -6px rgba(236,72,153,0.6);
+}
+
+.empty-state {
+  text-align: center; padding: 60px 20px;
+  color: var(--text-mute); font-size: 0.95rem;
+}
+
+/* ===== Sections shared ===== */
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--primary-2);
+  background: rgba(236,72,153,0.08);
+  border: 1px solid rgba(236,72,153,0.2);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-eyebrow svg { width: 14px; height: 14px; }
+.section-title {
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 700; letter-spacing: -0.035em;
+  line-height: 1.05; margin-bottom: 36px; max-width: 760px;
+}
+
+/* ===== How it works ===== */
+.how-section { padding: 80px 0 40px; }
+.how-grid {
+  display: grid; gap: 14px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) { .how-grid { grid-template-columns: repeat(3, 1fr); } }
+.how-card {
+  position: relative; padding: 28px 22px 26px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid var(--line); border-radius: 20px;
+  overflow: hidden; transition: all 0.35s;
+}
+.how-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(400px 200px at 0% 0%, rgba(236,72,153,0.1), transparent);
+  opacity: 0; transition: opacity 0.4s;
+}
+.how-card:hover { transform: translateY(-4px); border-color: rgba(236,72,153,0.35); }
+.how-card:hover::before { opacity: 1; }
+.how-num {
+  font-family: "Instrument Serif", serif; font-style: italic;
+  font-size: 2.4rem; color: var(--primary);
+  line-height: 1; margin-bottom: 14px; position: relative;
+}
+.how-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(236,72,153,0.12); color: var(--primary-2);
+  border: 1px solid rgba(236,72,153,0.25);
+  margin-bottom: 14px; position: relative;
+}
+.how-icon svg { width: 18px; height: 18px; }
+.how-title {
+  font-size: 1.15rem; font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 6px; position: relative;
+}
+.how-desc {
+  font-size: 0.9rem; color: var(--text-dim);
+  line-height: 1.55; position: relative;
+}
+
+/* ===== Testimonials ===== */
+.testi-section { padding: 60px 0 40px; }
+.testi-grid {
+  display: grid; gap: 14px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) { .testi-grid { grid-template-columns: repeat(3, 1fr); } }
+.testi-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px; padding: 24px;
+  transition: all 0.3s;
+}
+.testi-card:hover { border-color: rgba(236,72,153,0.3); transform: translateY(-3px); }
+.testi-stars { display: inline-flex; gap: 2px; }
+.testi-stars svg { width: 16px; height: 16px; fill: var(--primary-2); color: var(--primary-2); }
+.testi-quote {
+  font-size: 0.98rem; line-height: 1.55; color: var(--text);
+  margin: 14px 0 18px; font-weight: 500;
+}
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1rem;
+}
+.testi-name { font-weight: 700; font-size: 0.9rem; }
+.testi-handle { font-size: 0.78rem; color: var(--text-mute); }
+
+/* ===== FAQ ===== */
+.faq-section { padding: 60px 0 30px; }
+.faq-list { display: flex; flex-direction: column; gap: 8px; max-width: 760px; }
+.faq-item {
+  border: 1px solid var(--line); border-radius: 14px;
+  overflow: hidden; background: rgba(255,255,255,0.015);
+  transition: border-color 0.3s;
+}
+.faq-item.open { border-color: rgba(236,72,153,0.3); }
+.faq-q {
+  width: 100%; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px;
+  padding: 18px 20px; background: transparent;
+  color: var(--text); border: none; cursor: pointer;
+  font-size: 1rem; font-weight: 600; text-align: left;
+  letter-spacing: -0.01em;
+}
+.faq-chev {
+  width: 18px; height: 18px; color: var(--text-dim);
+  transition: transform 0.35s, color 0.3s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-chev { transform: rotate(180deg); color: var(--primary); }
+.faq-a-wrap {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.faq-item.open .faq-a-wrap { max-height: 240px; }
+.faq-a {
+  padding: 0 20px 20px;
+  color: var(--text-dim);
+  font-size: 0.93rem; line-height: 1.6;
+}
+
+/* ===== Final CTA ===== */
+.final-cta { padding: 80px 0 40px; }
+.final-cta-inner {
+  position: relative; text-align: center;
+  padding: 60px 30px; border-radius: 28px;
+  background: linear-gradient(135deg, rgba(236,72,153,0.14) 0%, rgba(190,24,93,0.05) 100%);
+  border: 1px solid rgba(236,72,153,0.25);
+  overflow: hidden;
+}
+.final-cta-inner::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(800px 400px at 50% 0%, rgba(236,72,153,0.25), transparent 70%);
+  pointer-events: none;
+}
+.final-cta-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 600; color: #fff;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 18px; position: relative;
+}
+.final-cta-badge svg { width: 13px; height: 13px; }
+.final-cta-title {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 700; letter-spacing: -0.035em;
+  line-height: 1.05; margin-bottom: 14px; position: relative;
+}
+.final-cta-sub {
+  color: var(--text-dim); max-width: 560px;
+  margin: 0 auto 30px; font-size: 1.02rem; line-height: 1.55;
+  position: relative;
+}
+.final-cta-trust {
+  margin-top: 22px;
+  display: inline-flex; flex-wrap: wrap; justify-content: center;
+  gap: 22px; font-size: 0.85rem; color: var(--text-dim);
+  position: relative;
+}
+.final-cta-trust span { display: inline-flex; align-items: center; gap: 6px; }
+.final-cta-trust svg { width: 14px; height: 14px; }
+
+/* ===== Footer ===== */
+.footer-premium {
+  padding: 70px 20px 40px; margin-top: 40px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 100%);
+}
+.footer-content { max-width: 1200px; margin: 0 auto; }
+.footer-logo {
+  font-size: 1.6rem; font-weight: 700;
+  background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+}
+.footer-year { color: var(--text-mute); font-size: 0.85rem; margin-bottom: 24px; }
+.trust-badges {
+  display: flex; justify-content: center; gap: 12px;
+  margin: 20px 0; flex-wrap: wrap;
+}
+.trust-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 0.82rem; color: var(--text-dim);
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--line); transition: all 0.25s;
+}
+.trust-badge:hover { border-color: rgba(236,72,153,0.4); color: var(--primary-2); }
+.trust-badge svg { width: 14px; height: 14px; color: var(--primary); }
+.footer-links {
+  display: flex; justify-content: center; gap: 26px;
+  margin: 26px 0; flex-wrap: wrap;
+}
+.footer-link { color: var(--text-mute); font-size: 0.88rem; transition: color 0.25s; }
+.footer-link:hover { color: var(--primary-2); }
+.footer-bottom {
+  color: var(--text-mute); opacity: 0.7;
+  font-size: 0.78rem; margin-top: 24px;
+  padding-top: 20px; border-top: 1px solid var(--line);
+}
+
+/* ===== Scroll top ===== */
+.scroll-top {
+  position: fixed; bottom: 86px; right: 22px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: all 0.3s ease; z-index: 998;
+  box-shadow: 0 8px 24px -6px rgba(236,72,153,0.55);
+}
+.scroll-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.scroll-top:hover { transform: translateY(-3px); }
+.scroll-top svg { width: 20px; height: 20px; }
+
+/* ===== Social proof toast ===== */
+.toast-proof {
+  position: fixed; bottom: 24px; left: 24px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px 10px 12px;
+  background: rgba(17,10,20,0.9);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(236,72,153,0.1);
+  opacity: 0; transform: translateY(20px) scale(0.95);
+  transition: all 0.45s cubic-bezier(0.2,0.8,0.2,1);
+  pointer-events: none; z-index: 997;
+  max-width: calc(100vw - 48px);
+}
+.toast-proof.in { opacity: 1; transform: translateY(0) scale(1); }
+.toast-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; flex-shrink: 0;
+}
+.toast-icon svg { width: 14px; height: 14px; }
+.toast-name { font-size: 0.85rem; font-weight: 700; line-height: 1.1; }
+.toast-action { font-size: 0.72rem; color: var(--text-mute); line-height: 1.2; }
+
+/* ===== Mobile sticky CTA ===== */
+.mobile-sticky-cta {
+  position: fixed; bottom: 14px; left: 14px; right: 14px;
+  display: none; align-items: center; justify-content: center; gap: 6px;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  color: #fff; border-radius: 14px;
+  font-weight: 700; font-size: 0.95rem; text-align: center;
+  z-index: 996;
+  box-shadow: 0 12px 30px -8px rgba(236,72,153,0.6), 0 0 0 1px rgba(255,255,255,0.1) inset;
+}
+.mobile-sticky-cta svg { width: 16px; height: 16px; }
+
+@media (max-width: 720px) {
+  .hero-premium { padding-top: 110px; }
+  .filter-bar { top: 70px; }
+  .toast-proof { left: 12px; bottom: 80px; }
+  .scroll-top { bottom: 84px; right: 14px; }
+  .mobile-sticky-cta { display: flex; }
+  .final-cta-inner { padding: 44px 20px; }
+  .hero-stats { gap: 12px; padding: 12px 16px; }
+  .stat-value { font-size: 1.2rem; }
+}
+
+/* ===== Conversion improvements ===== */
+.filter-cta {
+  margin-left: auto; flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 9px 18px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  color: #fff; font-size: 0.85rem; font-weight: 700; white-space: nowrap;
+  box-shadow: 0 6px 18px -6px rgba(236,72,153,0.7);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.filter-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 26px -8px rgba(236,72,153,0.85); }
+
+.card-premium::after {
+  content: ""; position: absolute; inset: -1px; border-radius: 19px;
+  pointer-events: none; opacity: 0; z-index: 6;
+  box-shadow: 0 0 0 2px rgba(236,72,153,0.55), 0 0 30px -4px rgba(236,72,153,0.5);
+  transition: opacity 0.3s;
+}
+.card-premium:hover::after { opacity: 1; animation: pulseGlow 1.6s ease-in-out infinite; }
+@keyframes pulseGlow {
+  0%,100% { box-shadow: 0 0 0 2px rgba(236,72,153,0.55), 0 0 22px -4px rgba(236,72,153,0.4); }
+  50% { box-shadow: 0 0 0 2px rgba(236,72,153,0.85), 0 0 40px -2px rgba(236,72,153,0.75); }
+}
+
+.card-viewers {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.74rem; color: var(--green); font-weight: 600;
+  margin: 2px 0 10px;
+}
+
+.trust-strip {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+  margin: 34px auto 6px;
+}
+.trust-strip-item {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 16px; border-radius: 999px;
+  font-size: 0.82rem; font-weight: 600; color: var(--text-dim);
+  background: rgba(255,255,255,0.025); border: 1px solid var(--line);
+}
+.trust-strip-item svg { width: 15px; height: 15px; color: var(--primary); }
+
+.btn-premium.cta-glow { animation: ctaGlow 2.4s ease-in-out infinite; }
+@keyframes ctaGlow {
+  0%,100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 8px 24px -6px rgba(236,72,153,0.55); }
+  50% { box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset, 0 10px 34px -4px rgba(236,72,153,0.85); }
+}
+@media (max-width: 720px) {
+  .hero-premium { padding-top: 96px; padding-bottom: 40px; }
+  .hero-stats { gap: 10px; padding: 10px 14px; }
+  .stat { min-width: 62px; }
+  .stat-value { font-size: 1.05rem; }
+  .stat-sep { height: 22px; }
+  .filter-cta { padding: 8px 14px; font-size: 0.8rem; }
+  .trust-strip { gap: 8px; }
+  .trust-strip-item { font-size: 0.75rem; padding: 8px 12px; }
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+<div class="grain"></div>
+
+<header class="header-premium" id="header">
+  <div class="header-inner">
+    <a href="#" class="logo" id="ctaLogo">
+      <span class="logo-mark"><i data-lucide="heart" style="width:14px;height:14px;fill:#fff;"></i></span>
+      <span class="logo-text">NaughtyList</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#grid" class="nav-link">Browse</a>
+      <a href="#how" class="nav-link">How it works</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+    </nav>
+    <a href="#" class="btn-premium cta-link">Join Free <i data-lucide="arrow-right"></i></a>
+  </div>
+</header>
+
+<section class="hero-premium">
+  <div class="hero-eyebrow"><span class="dot-live"></span> 100% Free to browse · 18+</div>
+  <h1 class="hero-title">
+    Discover premium <br>
+    <span class="serif-italic gradient-text">verified creators</span><span class="hero-cursor"></span>
+  </h1>
+  <p class="hero-subtitle">
+    Join the most curated directory of authentic, ID-verified creators.
+    Real profiles. Real conversations. Zero catfish.
+  </p>
+
+  <div class="hero-cta-row">
+    <a href="#" class="btn-premium btn-lg cta-glow cta-link">Get Started Free <i data-lucide="arrow-right"></i></a>
+    <a href="#grid" class="btn-ghost">Browse creators</a>
+  </div>
+
+  <div class="hero-trust">
+    <div class="avatars">
+      <img class="avatar" src="https://i.pravatar.cc/64?img=32" alt="">
+      <img class="avatar" src="https://i.pravatar.cc/64?img=48" alt="">
+      <img class="avatar" src="https://i.pravatar.cc/64?img=12" alt="">
+      <img class="avatar" src="https://i.pravatar.cc/64?img=68" alt="">
+      <img class="avatar" src="https://i.pravatar.cc/64?img=25" alt="">
+    </div>
+    <div class="trust-text">
+      <div class="stars">
+        <i data-lucide="star" style="fill:#f472b6;"></i>
+        <i data-lucide="star" style="fill:#f472b6;"></i>
+        <i data-lucide="star" style="fill:#f472b6;"></i>
+        <i data-lucide="star" style="fill:#f472b6;"></i>
+        <i data-lucide="star" style="fill:#f472b6;"></i>
+      </div>
+      <span class="trust-meta"><b>4.9/5</b> from 12,400+ reviews</span>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-value" id="statMembers">0+</div>
+      <div class="stat-label">Active members</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <div class="stat-value" id="statCreators">0+</div>
+      <div class="stat-label">Verified creators</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <div class="stat-value"><span class="dot-live"></span><span id="statOnline">0</span></div>
+      <div class="stat-label">Online now</div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-chip active" data-cat="All">All</button>
+    <button class="filter-chip" data-cat="Asian">Asian</button>
+    <button class="filter-chip" data-cat="Blonde">Blonde</button>
+    <button class="filter-chip" data-cat="Celeb">Celeb</button>
+    <button class="filter-chip" data-cat="Cosplay">Cosplay</button>
+    <button class="filter-chip" data-cat="Ebony">Ebony</button>
+    <button class="filter-chip" data-cat="Latina">Latina</button>
+    <button class="filter-chip" data-cat="Free">Free</button>
+    <a href="#" class="filter-cta cta-link">Join Free <i data-lucide="user-plus"></i></a>
+  </div>
+</div>
+
+<section class="container" id="grid" style="padding-bottom:48px;">
+  <div class="grid" id="gridList"></div>
+  <div class="empty-state" id="emptyState" style="display:none;">No creators match this filter — try another category.</div>
+</section>
+
+<div class="trust-strip">
+  <div class="trust-strip-item"><i data-lucide="shield-check"></i> 100% ID-Verified</div>
+  <div class="trust-strip-item"><i data-lucide="lock"></i> Private &amp; Encrypted</div>
+  <div class="trust-strip-item"><i data-lucide="zap"></i> Instant Chat</div>
+  <div class="trust-strip-item"><i data-lucide="badge-check"></i> 5,000+ Creators</div>
+</div>
+
+<div class="container-narrow">
+
+  <section class="how-section" id="how">
+    <div class="section-eyebrow"><i data-lucide="sparkles"></i> How it works</div>
+    <h2 class="section-title">Three steps to your <span class="serif-italic gradient-text">first chat</span></h2>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <div class="how-icon"><i data-lucide="users"></i></div>
+        <h3 class="how-title">Create your account</h3>
+        <p class="how-desc">30-second free signup. No credit card needed to browse.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <div class="how-icon"><i data-lucide="badge-check"></i></div>
+        <h3 class="how-title">Browse verified creators</h3>
+        <p class="how-desc">5,000+ verified profiles. Filter by category, location, vibe.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <div class="how-icon"><i data-lucide="message-circle-heart"></i></div>
+        <h3 class="how-title">Chat instantly</h3>
+        <p class="how-desc">Real-time messages, exclusive content, all in one place.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testi-section">
+    <div class="section-eyebrow"><i data-lucide="heart"></i> What members say</div>
+    <h2 class="section-title">Trusted by people who <span class="serif-italic gradient-text">don't trust easily</span></h2>
+    <div class="testi-grid">
+      <figure class="testi-card">
+        <div class="testi-stars">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </div>
+        <blockquote class="testi-quote">"The verification process is real. Every profile I've matched with has been authentic. Hands down the best directory I've used."</blockquote>
+        <figcaption class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div><div class="testi-name">Marcus T.</div><div class="testi-handle">Member since 2024</div></div>
+        </figcaption>
+      </figure>
+      <figure class="testi-card">
+        <div class="testi-stars">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </div>
+        <blockquote class="testi-quote">"Loved the filters. Found exactly what I was looking for in minutes. The chat experience feels actually premium."</blockquote>
+        <figcaption class="testi-author">
+          <div class="testi-avatar">D</div>
+          <div><div class="testi-name">Daniel R.</div><div class="testi-handle">Premium member</div></div>
+        </figcaption>
+      </figure>
+      <figure class="testi-card">
+        <div class="testi-stars">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </div>
+        <blockquote class="testi-quote">"Skeptical at first. Then I saw the live profiles and the responsiveness. Way better than anything I've tried before."</blockquote>
+        <figcaption class="testi-author">
+          <div class="testi-avatar">J</div>
+          <div><div class="testi-name">Jordan K.</div><div class="testi-handle">New member</div></div>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq">
+    <div class="section-eyebrow"><i data-lucide="shield-check"></i> FAQ</div>
+    <h2 class="section-title">Things you might be <span class="serif-italic gradient-text">wondering</span></h2>
+    <div class="faq-list" id="faqList"></div>
+  </section>
+
+  <section class="final-cta">
+    <div class="final-cta-inner">
+      <div class="final-cta-badge"><i data-lucide="clock"></i> Limited free access this week</div>
+      <h2 class="final-cta-title">Your next conversation is <span class="serif-italic gradient-text">one click away</span></h2>
+      <p class="final-cta-sub">Join 54,000+ members already inside. No credit card. No spam. Just real verified creators.</p>
+      <a href="#" class="btn-premium btn-xl cta-glow cta-link">Claim Free Access <i data-lucide="arrow-right"></i></a>
+      <div class="final-cta-trust">
+        <span><i data-lucide="check"></i> 100% private</span>
+        <span><i data-lucide="check"></i> Cancel anytime</span>
+        <span><i data-lucide="check"></i> 18+ only</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer-premium">
+  <div class="footer-content">
+    <div class="footer-logo">NaughtyList</div>
+    <div class="footer-year">© 2026</div>
+    <div class="trust-badges">
+      <div class="trust-badge"><i data-lucide="badge-check"></i> Verified Creators</div>
+      <div class="trust-badge"><i data-lucide="lock"></i> Secure & Private</div>
+      <div class="trust-badge"><i data-lucide="zap"></i> Instant Access</div>
+      <div class="trust-badge"><i data-lucide="star"></i> Trusted by 50K+</div>
+    </div>
+    <div class="footer-links">
+      <a href="#" class="footer-link cta-link">About</a>
+      <a href="#" class="footer-link cta-link">Privacy</a>
+      <a href="#" class="footer-link cta-link">Terms</a>
+      <a href="#" class="footer-link cta-link">Support</a>
+      <a href="#" class="footer-link cta-link">Contact</a>
+    </div>
+    <div class="footer-bottom">All rights reserved. NaughtyList 2026. Must be 18+ to access.</div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i data-lucide="arrow-up"></i></button>
+
+<div class="toast-proof" id="toast">
+  <div class="toast-icon"><i data-lucide="sparkles"></i></div>
+  <div>
+    <div class="toast-name" id="toastName">Sarah from New York</div>
+    <div class="toast-action">just joined NaughtyList</div>
+  </div>
+</div>
+
+<a href="#" class="mobile-sticky-cta cta-link">Join Free Now <i data-lucide="arrow-right"></i></a>
+
+<script>
+const CTA = "https://go.cm-trk6.com/aff_nl?offer_id=13309&aff_id=96529&lands=127_128_129&aff_sub5=free-social";
+
+// Wire all CTA links
+document.querySelectorAll('.cta-link, #ctaLogo').forEach(el => el.setAttribute('href', CTA));
+
+const models = [
+  {name:"Lindsay",img:"https://pbs.twimg.com/media/GJd33_oXcAA9Q7_?format=jpg&name=large",cats:["Blonde"],free:true,age:22,location:"Los Angeles"},
+  {name:"Megan",img:"https://pbs.twimg.com/media/GpKCaKPXgAAplyS.jpg",cats:["Milf","Free"],free:true,age:24,location:"New York"},
+  {name:"Hana",img:"https://pbs.twimg.com/media/Fy8OtLVaIAENvs1.jpg:large",cats:["Asian","Cosplay"],free:false,age:21,location:"Tokyo"},
+  {name:"Celeste",img:"https://i2-prod.dailystar.co.uk/article31710020.ece/ALTERNATES/s1200e/0_gizemmsavage_1688998468_3143869480420556718_52203711936.jpg",cats:["Teen"],free:false,age:19,location:"London"},
+  {name:"Aliyah",img:"https://pbs.twimg.com/media/F96TdrnbEAAveze?format=jpg&name=large",cats:["Teen"],free:false,age:20,location:"Toronto"},
+  {name:"Kitten",img:"https://pbs.twimg.com/media/F7iX4q_W8AA5yHT.jpg:large",cats:["Tattoos","Free"],free:true,age:23,location:"Berlin"},
+  {name:"Effy",img:"https://avatars.mds.yandex.net/i?id=91341ee4e4b4b10b00fa2aa0f7617b4b_l-5352698-images-thumbs&n=33&w=931&h=1242",cats:["Tattoos","Free"],free:true,age:25,location:"Paris"},
+  {name:"Lexi",img:"https://pbs.twimg.com/media/GCd7dlsXQAA399h?format=jpg&name=large",cats:["Ebony","Teen"],free:false,age:22,location:"Atlanta"},
+  {name:"Annie",img:"https://pbs.twimg.com/media/GNTtl6bXgAAJzue?format=jpg&name=large",cats:["Ebony"],free:false,age:24,location:"Chicago"},
+  {name:"Bella",img:"https://pbs.twimg.com/media/Gp0tngQWQAAsA4S.jpg",cats:["Blonde","Teen"],free:false,age:19,location:"Las Vegas"},
+  {name:"Vinnie",img:"https://pbs.twimg.com/media/FUG_F-_WIAExYTS.jpg:large",cats:["Cosplay","Teen","Free"],free:true,age:21,location:"Seoul"},
+  {name:"Priya",img:"https://pbs.twimg.com/media/FYc241SX0AAOUlW?format=jpg&name=large",cats:["Latina"],free:false,age:23,location:"Mumbai"},
+  {name:"Nicole",img:"https://pbs.twimg.com/media/FLk8vvbaIAEIj7F.jpg",cats:["Milf","Free"],free:true,age:29,location:"Sydney"},
+  {name:"Livy",img:"https://pbs.twimg.com/media/GqR9h_ZWEAAkSGi?format=jpg&name=large",cats:["Teen","Free"],free:true,age:20,location:"Melbourne"},
+  {name:"Bonnie",img:"https://media.zenfs.com/es/us_weekly_es_595/a6a90dc79cda970f0bacc4fe3f6006c9",cats:["Blonde","Celeb","Free"],free:true,age:26,location:"Hollywood"},
+  {name:"Ena",img:"https://pbs.twimg.com/media/Gb4MzFWWwAAONUl?format=jpg&name=4096x4096",cats:["Cosplay","Teen"],free:false,age:21,location:"Osaka"},
+  {name:"Felicia",img:"https://photos.xgroovy.com/contents/albums/sources/885000/885687/1081418.jpg",cats:["Cosplay","Free"],free:true,age:22,location:"San Francisco"},
+  {name:"Lola",img:"https://pbs.twimg.com/media/GhDUYVLWwAAJFdp?format=jpg&name=large",cats:["Cosplay","Latina"],free:false,age:24,location:"Barcelona"},
+  {name:"Juanita",img:"https://pbs.twimg.com/media/FpqwK5VaYAAqUXT?format=jpg&name=small",cats:["Latina","Free"],free:true,age:23,location:"Mexico City"},
+  {name:"Sophie",img:"https://akns-images.eonline.com/eol_images/Entire_Site/2024113/rs_819x1024-241203124913-455121922_487979720508631_124383605910786723_n.jpg?fit=around%7C819:1024&output-quality=90&crop=819:1024;center,top",cats:["Teen","Free"],free:true,age:20,location:"Vancouver"},
+  {name:"Barbie",img:"https://pbs.twimg.com/media/FcYYcNNaMAQXw2N.jpg:large",cats:["Cosplay","Teen","Free"],free:true,age:19,location:"Dubai"},
+  {name:"Hannah",img:"https://pbs.twimg.com/media/F04rT_DXoAMA5tU?format=jpg&name=4096x4096",cats:["Cosplay","Teen"],free:false,age:21,location:"Singapore"},
+  {name:"Corinna",img:"https://pbs.twimg.com/media/Gf1jj_IWUAAkCG1?format=jpg&name=large",cats:["Blonde","Celeb"],free:false,age:27,location:"Miami"},
+  {name:"Kaitlyn",img:"https://pbs.twimg.com/media/GXno16gWUAAFSk3?format=jpg&name=large",cats:["Celeb"],free:false,age:26,location:"Los Angeles"},
+  {name:"Belle",img:"https://i.ibb.co/NVrxmz7/ezgif-7-a54fecf16c.jpg",cats:["Cosplay","Teen"],free:false,age:22,location:"Portland"},
+  {name:"Gracie",img:"https://i.ibb.co/Vt8WfDx/436393064_122101628510274492_1530525692915401558_n.jpg",cats:["Latina","Free"],free:true,age:24,location:"San Diego"},
+  {name:"Alyssa",img:"https://pbs.twimg.com/media/F9KBoevaQAA1Rxw.jpg:large",cats:["Blonde","Teen"],free:false,age:20,location:"Phoenix"},
+  {name:"Jilissa",img:"https://pbs.twimg.com/media/GU0-YTDXMAIafsM?format=jpg&name=large",cats:["Blonde","Free"],free:true,age:25,location:"Dallas"},
+  {name:"Katiana",img:"https://pbs.twimg.com/media/GiqhzIubYAUyiiC?format=jpg&name=large",cats:["Latina","Teen","Free"],free:true,age:21,location:"Houston"},
+  {name:"Elle",img:"https://pbs.twimg.com/media/F-hGMBnbcAAHBip.jpg:large",cats:["Asian","Teen","Free"],free:true,age:22,location:"Bangkok"},
+  {name:"Vanessa",img:"https://pbs.twimg.com/media/Fmrwa9gaEAAV2Aq?format=jpg&name=large",cats:["Teen","Free"],free:true,age:19,location:"Montreal"},
+  {name:"Charlotte",img:"https://pbs.twimg.com/media/GAr8HHrXwAA-yaZ?format=jpg&name=large",cats:["Blonde","Free"],free:true,age:23,location:"Amsterdam"},
+  {name:"Sari",img:"https://pbs.twimg.com/media/GCiNqUCWcAIqOjd?format=jpg&name=large",cats:["Ebony","Free"],free:true,age:24,location:"London"},
+  {name:"Skylar",img:"https://pbs.twimg.com/media/GlS4PKLWYAAYBcU?format=jpg&name=large",cats:["Teen","Free"],free:true,age:20,location:"Toronto"},
+  {name:"Queen",img:"https://pbs.twimg.com/media/GH7vs54XcAAlTI4?format=jpg&name=large",cats:["Free","Teen"],free:true,age:21,location:"New York"},
+  {name:"Emanuelle",img:"https://odia.ig.com.br/_midias/jpg/2024/08/21/img_20240815_151833_943-33778239.jpg",cats:["Latina","Free"],free:true,age:26,location:"Rio de Janeiro"},
+  {name:"Doll",img:"https://pbs.twimg.com/media/GTGI2fuWoAAXsAM?format=jpg&name=large",cats:["Free"],free:true,age:22,location:"Milan"},
+  {name:"Billie",img:"https://pbs.twimg.com/media/Gld5AGrbwAQ5IXF.jpg",cats:["Celeb","Free"],free:true,age:25,location:"Los Angeles"},
+  {name:"Anastasia",img:"https://pbs.twimg.com/media/GKf77FdW4AAtQgw.jpg",cats:["Blonde"],free:false,age:23,location:"Moscow"},
+  {name:"Summer",img:"https://pbs.twimg.com/media/F54UojCW8AAMnaN?format=jpg&name=large",cats:["Blonde"],free:false,age:24,location:"Sydney"},
+  {name:"Avery",img:"https://sugarbabes.com/wp-content/uploads/2025/05/averymiaclub-764x1024.webp",cats:["Free"],free:true,age:22,location:"Chicago"},
+  {name:"Sage",img:"https://pbs.twimg.com/amplify_video_thumb/1878237354185351168/img/94LCh7PZVTQou_nI?format=jpg&name=large",cats:["Blonde"],free:false,age:21,location:"Denver"},
+  {name:"Jakara",img:"https://pbs.twimg.com/media/F5DlAOyXwAAQpc1.jpg:large",cats:["Free"],free:true,age:23,location:"Detroit"},
+  {name:"Emma",img:"https://i.postimg.cc/4yBKHTrb/Visit-onlyshare-io-for-MORE-7.jpg",cats:["Cosplay"],free:false,age:22,location:"Austin"},
+  {name:"Yella",img:"https://pbs.twimg.com/media/Gq8w1EwWMAAlK4P?format=jpg&name=small",cats:["Ebony"],free:false,age:24,location:"Atlanta"},
+  {name:"Sakura",img:"https://pbs.twimg.com/media/GqH9fwWaEAA2guy?format=jpg&name=large",cats:["Asian"],free:false,age:21,location:"Kyoto"},
+  {name:"Cinnamon",img:"https://pbs.twimg.com/media/FYtiIaJUYAAVIfq.jpg:large",cats:["Asian"],free:false,age:23,location:"Shanghai"},
+  {name:"Waifu",img:"https://pbs.twimg.com/media/Ggn0QNzbAAAhZUp?format=jpg&name=large",cats:["Cosplay","Teen"],free:false,age:20,location:"Tokyo"},
+  {name:"Tami",img:"https://avatars.mds.yandex.net/i?id=4c743228c98ba27d6b675139d75e0454_l-5232437-images-thumbs&n=13",cats:["Celeb","Free"],free:true,age:27,location:"Hollywood"},
+  {name:"Blue",img:"https://s8d2.turboimg.net/sp/5d06f992bf2a67da417a2b89afa838b0/GQRkWc8W4AAkeFa.jpg",cats:["Cosplay","Teen"],free:false,age:19,location:"Seattle"},
+  {name:"Praew",img:"https://pbs.twimg.com/media/F_uEgRQacAIMBA5.jpg:large",cats:["Asian","Free"],free:true,age:22,location:"Bangkok"},
+  {name:"Mia",img:"https://i.ebayimg.com/images/g/uEcAAOSwAmdjw0TG/s-l1200.jpg",cats:["Celeb","Free"],free:true,age:28,location:"Beverly Hills"},
+  {name:"Kitty",img:"https://pbs.twimg.com/media/FZDoBgSUIAAjlWB.jpg:large",cats:["Asian","Teen"],free:false,age:20,location:"Taipei"},
+  {name:"Michelle",img:"https://pbs.twimg.com/media/FVvgDM-WIAAC8Df?format=jpg&name=medium",cats:["Teen","Free"],free:true,age:21,location:"Vancouver"},
+  {name:"Kiara",img:"https://pbs.twimg.com/media/GVPE8RRXoAAsZiv?format=jpg&name=large",cats:["Ebony","Free"],free:true,age:23,location:"London"},
+  {name:"Niki",img:"https://pbs.twimg.com/media/GqsatoOakAAHD04?format=jpg&name=large",cats:["Asian"],free:false,age:22,location:"Seoul"},
+  {name:"Mika",img:"https://pbs.twimg.com/media/Gm6JWQzW4AAqkNC?format=jpg&name=large",cats:["Asian"],free:false,age:21,location:"Osaka"},
+  {name:"Salome",img:"https://pbs.twimg.com/media/GnFwgZQW0AAAfzE?format=jpg&name=large",cats:["Teen","Free"],free:true,age:20,location:"Rome"},
+  {name:"Aishah",img:"https://pbs.twimg.com/media/GY_Sne3WAAAxzQt?format=jpg&name=large",cats:["Free","Teen"],free:true,age:22,location:"Dubai"},
+  {name:"Lily",img:"https://onlyseeker.io/img/mgZZrgS_-UT9I6xnY-r5JKMJjJVT2MIdWMdVvME6K9A/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/lilyyy92y51-avatar-2026-04-30t09-28-09-20260430122809.webp",cats:["Asian"],free:false,age:20,location:"Los Angeles"},
+  {name:"Millie",img:"https://onlyseeker.io/img/c6COByPXKRR1CbxLWCqm9fyUKcvtvz6nFCzSfXfZYmM/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/heyitsmilliexx-avatar-2026-04-30t09-26-01-20260430122601.webp",cats:["Teen"],free:false,age:23,location:"Miami"},
+  {name:"Teya",img:"https://onlyseeker.io/img/KNzE6l3fCfmC7HU9vqvB0CCIPi5NV2XqNd25CrmNaY0/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/teya_cutie-ppc-20260623172607102-2qv0tbm2t39.webp",cats:["Free"],free:false,age:22,location:"New York"},
+  {name:"Freya",img:"https://onlyseeker.io/img/U-usNj4ke_bjze_Ohn0Zb009DRblm-ZDQF1ufl17xcA/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/freya-robertss-avatar-2026-05-15t20-15-50-20260515231551.webp",cats:["Free"],free:false,age:20,location:"Tokyo"},
+  {name:"Poppy",img:"https://onlyseeker.io/img/R_VI8AvRzFyufI0B-IbD_n7nl84WiSWsZ1iDHPunmbM/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/poppy-lawson-avatar-2026-04-30t09-25-13-20260430122514.webp",cats:["Asian"],free:false,age:27,location:"London"},
+  {name:"Jess",img:"https://onlyseeker.io/img/x50bczT37l3DD987hYKHq1RHy933xrVxzEqSgCZDlpY/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/jessie_ca_xo-avatar-2026-04-15t10-21-03-20260415132107.jpg",cats:["Teen"],free:false,age:25,location:"Toronto"},
+  {name:"Nicol",img:"https://onlyseeker.io/img/o3Xmkyi2aowYmzq-qqMI0d-0pdsLNnWmk5d4j_aLTkk/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/nicoool_xoxo-avatar-2025-11-10t00-24-49-20251110022450",cats:["Teen"],free:false,age:19,location:"Berlin"},
+  {name:"Hazel",img:"https://onlyseeker.io/img/-miAnTFZAEyLJataAaU_obttLVDPMcD3KLHDJheFYb0/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/hazel-turner-ppc-4c9ee5743493337882c6e307.webp",cats:["Teen"],free:false,age:22,location:"Paris"},
+  {name:"Linda",img:"https://onlyseeker.io/img/BORn5VAg5Zo5rqxkkLshB1SXzFFj7bht5WrIHY2T1TA/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/lindale_18-avatar-2026-05-14t17-37-19-20260514203720.jpg",cats:["Free"],free:false,age:27,location:"Atlanta"},
+  {name:"Sofi",img:"https://onlyseeker.io/img/2gu6kL3031GjDFMF_hT-0KJ8uPXR8YPAXW1AsPRehNc/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/sofi_tender-ppc-20260429113001.webp",cats:["Latina"],free:false,age:19,location:"Chicago"},
+  {name:"Lily",img:"https://onlyseeker.io/img/sTquKXtZ5Y1ZTHj5QD4D2Bsg8gKs4imK_5f-DZH8dNc/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/lily-18-ppc-369d0f1e8fd3f32b0beaf1c3.webp",cats:["Latina"],free:false,age:22,location:"Las Vegas"},
+  {name:"Tilly",img:"https://onlyseeker.io/img/LcOEad2p5Hi64B1pYVnn17P1m8EGulI8knX8iZzynOo/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/tillyharrington-ppc-a79932491b052441d9f116d4.webp",cats:["Asian"],free:false,age:27,location:"Seoul"},
+  {name:"Olivia",img:"https://onlyseeker.io/img/RZNz9Gcoic7_g9nSmIJAlBuj_ZkzJQFmuZ7YeaLs-Uw/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/olivia_greys-avatar-2026-05-28t07-42-01-20260528104204.jpg",cats:["Blonde"],free:false,age:22,location:"Mumbai"},
+  {name:"Karina",img:"https://onlyseeker.io/img/0ZC7x9i3PCWQAItUd65B36Qi1jri1L1U3yKC5wgvvfc/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/princess_karina-ppc-20260415113004.webp",cats:["Blonde"],free:false,age:23,location:"Sydney"},
+  {name:"Angelina",img:"https://onlyseeker.io/img/oaqsUj5Ug--wQc0bBTKD9s7W-SpnBsWKGyc1I18im3U/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/angelina_jones-ppc-02d2b3521b4c37b43c29fe1c.webp",cats:["Teen"],free:false,age:19,location:"Melbourne"},
+  {name:"Ellie",img:"https://onlyseeker.io/img/XXVk0DpaRuidiQNSoB-uL__M5015TaRmkW8IRXGJxVQ/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/ellie_gymnast-ppc-699c9af411932ce4ffde1363.webp",cats:["Milf"],free:false,age:21,location:"Hollywood"},
+  {name:"Kate",img:"https://onlyseeker.io/img/h-cjrQqupNRGSUqqyLb98T5px2wEo84yKaw_ne9BaVs/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/kate_jones-ppc-20260624164107649-2roowtmhb6g.webp",cats:["Asian"],free:false,age:25,location:"Osaka"},
+  {name:"Lily",img:"https://onlyseeker.io/img/x3FSyHzgIw2OzKdQijVLEWJFEXD1fafeRJHDgLzjSfA/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/llily18-avatar-2026-04-15t10-54-32-20260415135435.jpg",cats:["Cosplay"],free:false,age:23,location:"San Francisco"},
+  {name:"Kira",img:"https://onlyseeker.io/img/UHJL2nMDVjysECDeuT0tzBYIWtcns-Gj3MFZy50Obxo/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/kira_williams-ppc-20260624163503737-2rok9n6tjy3.webp",cats:["Free"],free:false,age:22,location:"Barcelona"},
+  {name:"Little Kitty",img:"https://onlyseeker.io/img/eTevkkVuJm8UP0Yar-AdYeQpTSWBEBb5y41IG_0jrPE/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/lit1le_kitty-ppc-f3a1281a4eaaf2d67d61ca74.webp",cats:["Milf"],free:false,age:24,location:"Mexico City"},
+  {name:"Lorna",img:"https://onlyseeker.io/img/JStHx2PH6g7HLe1mWx152iEv4YcWjJcKn4PsQEIONNo/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/lornaisville-ppc-269541dd9560a0170e4bb2a0.webp",cats:["Teen"],free:false,age:20,location:"Vancouver"},
+  {name:"Millie",img:"https://onlyseeker.io/img/MPg3ZVIsEVV7V9WhD8Ezeqh_vCD5LmpP7PrJhcYEH5s/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/miliemoon-ppc-20260601113115405-27xp4l483hs.webp",cats:["Blonde"],free:false,age:20,location:"Dubai"},
+  {name:"Eva",img:"https://onlyseeker.io/img/kHNlDnIAX5keWgU8Ll6qYIJmj14Q2u_QV353MpkQ6oY/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/chikkaa-ppc-20260604133002248-2ak3pg64ef8.webp",cats:["Cosplay"],free:false,age:24,location:"Singapore"},
+  {name:"Yumeko",img:"https://onlyseeker.io/img/B5FkEnzXH3cz8gpf5qzgdcZ_a4WxSK8PsMgSvnRL1HE/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/ariyummyyy-ppc-20260509131758.webp",cats:["Asian", "Cosplay"],free:false,age:24,location:"Portland"},
+  {name:"Roxie",img:"https://onlyseeker.io/img/CzVnPbqkaDligVcHUrkC0FHTz3zNhl1U8gcr-fpP2b4/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/alt_angel_roxie-onlytraffic-20260604141500694-2al253j9m5c",cats:["Teen", "Tattoos"],free:false,age:23,location:"San Diego"},
+  {name:"Nina",img:"https://onlyseeker.io/img/029XfvH_f4ngAU5MwDoNWi5vbM3_M_qC6lPoqOFMe_0/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/ninaaabrooks-onlytraffic-20260415111506",cats:["Milf"],free:false,age:19,location:"Phoenix"},
+  {name:"Dalia",img:"https://onlyseeker.io/img/6sH_GhDUAnZNDU0KFlk_fkCcxrAQaYx2XoC97usk3AY/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/daliafayed-onlytraffic-20260420041802",cats:["Asian"],free:false,age:26,location:"Dallas"},
+  {name:"Serena",img:"https://onlyseeker.io/img/M7eVKr40-laFXHo4S23xBpIV2Ws4LbmQCl5cvHQq3zA/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/yoursweetserenaa-onlytraffic-20260607181500775-2da1j8nbxq4.jpeg",cats:["Free", "Asian"],free:true,age:27,location:"Houston"},
+  {name:"Andrea",img:"https://onlyseeker.io/img/PxLUpGYHxMDqcR2d-p2ZDh9i3t1Vn0DKGaMeiykqr4k/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/miss-andrea-onlytraffic-20260415114502.jpg",cats:["Teen"],free:false,age:25,location:"Bangkok"},
+  {name:"Chloe",img:"https://onlyseeker.io/img/7Wp5h8m8RwyNCIhd8hHQSGkl2sOD88lztsSPj-c3jLs/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/chloebrady-onlytraffic-20260415111507",cats:["Teen"],free:false,age:27,location:"Montreal"},
+  {name:"Vikky",img:"https://onlyseeker.io/img/o6scUIeysVOYLqPW-BsJKcZEi0ggbhFQHzuaWCMTT3M/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/vikkylovefree-onlytraffic-20260622144500951-2pwyx53xncq",cats:["Cosplay"],free:false,age:24,location:"Amsterdam"},
+  {name:"Jasmine",img:"https://onlyseeker.io/img/V_iu-kygmcHK0iONUCao3chh3eqhL_zwu7MMAbQ6Glg/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/jasmelons-onlytraffic-20260525204500",cats:["Latina"],free:false,age:22,location:"Rio de Janeiro"},
+  {name:"Yasmin",img:"https://onlyseeker.io/img/kEuPHe-uZ0akeMcb6NOQqlVK54bjgCZo_ox_jlm_tYY/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/yasminflora-onlytraffic-20260415111507",cats:["Asian"],free:false,age:20,location:"Milan"},
+  {name:"Emily",img:"https://onlyseeker.io/img/M42st-xNiMdMXxMfMVCI6bktlpsyxHk3yeQnb73oifg/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/shyemilybaby-onlytraffic-20260619111502345-2n8mil3kwvm.jpg",cats:["Teen"],free:false,age:22,location:"Moscow"},
+  {name:"Liyana",img:"https://onlyseeker.io/img/eLalnpd_2e7pK4I-JJ4aPBwR-czJkklp7qB_rqCOjPo/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/liiyaanaa-onlytraffic-20260415111507",cats:["Asian"],free:false,age:23,location:"Denver"},
+  {name:"Lyfi",img:"https://onlyseeker.io/img/wuNrClFeR09-VO3b8XzXHSdx5zb2vVw9w56n2bWT96Y/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/lyfigreens-onlytraffic-20260421011910.jpg",cats:["Teen"],free:false,age:22,location:"Detroit"},
+  {name:"Mira",img:"https://onlyseeker.io/img/5zToxuKUs1F0NlWpDSIjq-pwvr0UJc5rag_S2f49U9M/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/mirasong-onlytraffic-20260519194507.jpg",cats:["Asian"],free:false,age:20,location:"Austin"},
+  {name:"Mariam",img:"https://onlyseeker.io/img/hElLkydttVd5jWvQ5NHrIlj0KQfrAl5JpRDPeB4K4NY/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/mariamsaeed-onlytraffic-20260415111506",cats:["Asian"],free:false,age:25,location:"Stockholm"},
+  {name:"Jasmine",img:"https://onlyseeker.io/img/vS191gfU-LMNsyOIgpaavqSwFyIfnFpHHC8DevnzPKw/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/jasminenoor-onlytraffic-20260622161500548-2pyvtoks0uc",cats:["Asian", "Free", "Teen"],free:true,age:23,location:"Rome"},
+  {name:"Emily",img:"https://onlyseeker.io/img/MtN2mmQ-hjoU955qPyzb0zdjfTydXRgVD9kvRsLILm4/rs:fill:600:800/g:ce/q:80/format:webp/plain/http://minio:9000/data/of-images/maybeemilyy-onlytraffic-20260507161804.jpg",cats:["Blonde"],free:false,age:24,location:"Kyoto"},
+  {name:"Hanna",img:"https://cdn.onlymodels.com/ha/nn/hanna-zimmer-3d91a.webp",cats:["Free"],free:false,age:19,location:"Los Angeles"},
+  {name:"Kayla",img:"https://cdn.onlymodels.com/ka/yl/kaylabumss-2b238.webp",cats:["Latina"],free:false,age:22,location:"Miami"},
+  {name:"Lola La",img:"https://cdn.onlymodels.com/lo/la/lolalala23-867de.webp",cats:["Blonde"],free:false,age:21,location:"New York"},
+  {name:"Sofia",img:"https://cdn.onlymodels.com/so/fi/sofiaaamillerrr-60573.webp",cats:["Free"],free:false,age:27,location:"Tokyo"},
+  {name:"Ali Cruz",img:"https://cdn.onlymodels.com/al/ic/alicruzxxx-dd75a.webp",cats:["Free"],free:false,age:28,location:"London"},
+  {name:"Yoourpriincess",img:"https://cdn.onlymodels.com/yo/ou/yoourpriincess-d42ed.webp",cats:["Milf"],free:false,age:19,location:"Toronto"},
+  {name:"Sofia",img:"https://cdn.onlymodels.com/it/ss/itssofiabae-9e84c.webp",cats:["Teen"],free:false,age:20,location:"Berlin"},
+  {name:"Kiki",img:"https://cdn.onlymodels.com/li/tt/little_poetry-24e3a.webp",cats:["Blonde"],free:false,age:22,location:"Paris"},
+  {name:"Bhad Bhabie",img:"https://cdn.onlymodels.com/bh/ad/bhadbhabie-a1f35.webp",cats:["Celeb"],free:false,age:27,location:"Atlanta"},
+  {name:"Marie",img:"https://cdn.onlymodels.com/ma/ri/marietemara-46333.webp",cats:["Teen"],free:false,age:27,location:"Chicago"},
+  {name:"Nora Rose",img:"https://cdn.onlymodels.com/no/ra/norarosejeanxx-4699b.webp",cats:["Blonde"],free:false,age:27,location:"Las Vegas"},
+  {name:"Thedumbledong",img:"https://cdn.onlymodels.com/th/ed/thedumbledong-54f19.webp",cats:["Milf"],free:false,age:22,location:"Seoul"},
+  {name:"sofia",img:"https://cdn.onlymodels.com/so/fi/sofiiiiagomez-e055b.webp",cats:["Celeb"],free:false,age:28,location:"Mumbai"},
+  {name:"Catarina",img:"https://cdn.onlymodels.com/ca/tk/catkitty21-cde5a.webp",cats:["Cosplay"],free:false,age:23,location:"Sydney"},
+  {name:"Nakedbakers",img:"https://cdn.onlymodels.com/na/ke/nakedbakers-b7f90.webp",cats:["Teen"],free:false,age:21,location:"Melbourne"},
+  {name:"ShyCutie",img:"https://cdn.onlymodels.com/sh/yc/shycutie-45976.webp",cats:["Milf"],free:false,age:24,location:"Hollywood"},
+  {name:"ashhhhh:))",img:"https://cdn.onlymodels.com/as/hl/ashleyyyreyyy-2780d.webp",cats:["Latina"],free:false,age:21,location:"Osaka"},
+  {name:"MATI",img:"https://cdn.onlymodels.com/ma/ti/matildem-4b940.webp",cats:["Blonde"],free:false,age:24,location:"San Francisco"},
+  {name:"jameliz",img:"https://cdn.onlymodels.com/ja/me/jamelizsmth-290ab.webp",cats:["Free"],free:false,age:20,location:"Barcelona"},
+  {name:"Eliana",img:"https://cdn.onlymodels.com/el/ia/elianarose-28df0.webp",cats:["Milf"],free:false,age:20,location:"Mexico City"},
+  {name:"Carly",img:"https://cdn.onlymodels.com/it/sc/itscarlyjane-f98ce.webp",cats:["Asian"],free:false,age:24,location:"Vancouver"},
+  {name:"Ari",img:"https://cdn.onlymodels.com/fu/ns/funsizedasian-e6108.webp",cats:["Asian"],free:false,age:28,location:"Dubai"},
+  {name:"Eireen",img:"https://cdn.onlymodels.com/ir/ai/irainature-ac4f0.webp",cats:["Latina"],free:false,age:19,location:"Singapore"},
+  {name:"Mia Malkova",img:"https://cdn.onlymodels.com/mi/am/miamalkova-e5fa5.webp",cats:["Celeb"],free:false,age:26,location:"Portland"},
+  {name:"Misscarriejune",img:"https://cdn.onlymodels.com/mi/ss/misscarriejune-ba4e1.webp",cats:["Tattoos"],free:false,age:27,location:"San Diego"},
+  {name:"Lena Plug",img:"https://cdn.onlymodels.com/le/na/lenatheplug-6ea60.webp",cats:["Free"],free:false,age:25,location:"Phoenix"},
+  {name:"AsianBunnyx",img:"https://cdn.onlymodels.com/as/ia/asianbunnyx-2eb80.webp",cats:["Asian", "Cosplay"],free:false,age:20,location:"Dallas"},
+  {name:"bee",img:"https://cdn.onlymodels.com/he/yi/heyimbee-88e7f.webp",cats:["Latina"],free:false,age:28,location:"Houston"},
+  {name:"Juicy",img:"https://cdn.onlymodels.com/se/xx/sexxyjaimie-cf069.webp",cats:["Asian"],free:false,age:28,location:"Bangkok"},
+  {name:"Corinna",img:"https://cdn.onlymodels.com/co/ri/corinnakopf-d3d3a.webp",cats:["Celeb"],free:false,age:22,location:"Montreal"},
+  {name:"Amouranth",img:"https://cdn.onlymodels.com/am/ou/amouranth-3b28d.webp",cats:["Celeb"],free:false,age:20,location:"Amsterdam"},
+  {name:"Prosexx",img:"https://cdn.onlymodels.com/pr/os/prosexx-2b431.webp",cats:["Teen"],free:false,age:22,location:"Rio de Janeiro"},
+  {name:"Marleny1",img:"https://cdn.onlymodels.com/ma/rl/marleny1-9ce26.webp",cats:["Latina"],free:false,age:23,location:"Milan"},
+  {name:"Bella",img:"https://cdn.onlymodels.com/ur/fa/urfavbellabby-e69b6.webp",cats:["Free"],free:false,age:22,location:"Moscow"},
+  {name:"Valorie",img:"https://cdn.onlymodels.com/yo/ur/your_submissive_doll-17fdb.webp",cats:["Free"],free:false,age:25,location:"Denver"},
+  {name:"Cheerleader",img:"https://cdn.onlymodels.com/ch/ee/cheerleaderkait-37822.webp",cats:["Latina"],free:false,age:26,location:"Detroit"},
+  {name:"Kiwi Sunset",img:"https://cdn.onlymodels.com/ki/wi/kiwisunset-23837.webp",cats:["Asian"],free:false,age:21,location:"Austin"},
+  {name:"Sky Bri",img:"https://cdn.onlymodels.com/sk/yb/skybri-9df48.webp",cats:["Asian"],free:false,age:24,location:"Stockholm"},
+  {name:"Laci Kay",img:"https://cdn.onlymodels.com/la/ci/lacikaysomers-8ee02.webp",cats:["Blonde"],free:false,age:23,location:"Rome"},
+  {name:"Jamie",img:"https://cdn.onlymodels.com/ja/mi/jamielyn-a4b15.webp",cats:["Free"],free:false,age:28,location:"Kyoto"},
+  {name:"Kayce884",img:"https://cdn.onlymodels.com/ka/yc/kayce884-2e2a1.webp",cats:["Cosplay"],free:false,age:27,location:"Bogota"},
+  {name:"Rubi Rose",img:"https://cdn.onlymodels.com/ru/bi/rubixrose-f8b38.webp",cats:["Blonde"],free:false,age:21,location:"Lisbon"},
+  {name:"Emma Hix",img:"https://cdn.onlymodels.com/em/ma/emmahixofficial-8d269.webp",cats:["Celeb"],free:false,age:25,location:"Warsaw"},
+  {name:"Sammy",img:"https://cdn.onlymodels.com/sa/mm/sammythighs-142e3.webp",cats:["Latina"],free:false,age:27,location:"Prague"},
+  {name:"Kinzie",img:"https://cdn.onlymodels.com/ho/es/hoesluvkinz-e868a.webp",cats:["Blonde"],free:false,age:24,location:"Vienna"},
+  {name:"Anna",img:"https://cdn.onlymodels.com/ma/li/maligoshik-3a74e.webp",cats:["Teen"],free:false,age:22,location:"Zurich"},
+  {name:"Azucar",img:"https://cdn.onlymodels.com/az/uc/azucaralejandra-97ee7.webp",cats:["Latina"],free:false,age:19,location:"Manila"},
+  {name:"Jailyne",img:"https://cdn.onlymodels.com/ja/il/jailyneojeda-509c0.webp",cats:["Asian"],free:false,age:25,location:"Jakarta"},
+  {name:"Lamar",img:"https://cdn.onlymodels.com/la/mh/lamhard-b0c3b.webp",cats:["Latina"],free:false,age:20,location:"Istanbul"},
+  {name:"Abby Lynn",img:"https://cdn.onlymodels.com/ab/by/abbylynnxxx-b3472.webp",cats:["Tattoos"],free:false,age:22,location:"Cairo"},
+  {name:"Ari",img:"https://cdn.onlymodels.com/ar/ik/arikytsya-705fc.webp",cats:["Asian"],free:false,age:22,location:"Dublin"},
+  {name:"Skylarmaexo",img:"https://cdn.onlymodels.com/sk/yl/skylarmaexo-9148b.webp",cats:["Celeb"],free:false,age:25,location:"Edinburgh"},
+  {name:"Imogen",img:"https://cdn.onlymodels.com/im/og/imogenlucie-e097a.webp",cats:["Celeb"],free:false,age:21,location:"Copenhagen"},
+  {name:"Olivia",img:"https://cdn.onlymodels.com/ol/iv/oliviamaebaee-5c556.webp",cats:["Latina"],free:false,age:21,location:"Helsinki"},
+  {name:"Victorya",img:"https://cdn.onlymodels.com/vi/ct/victoryaxo-e7fab.webp",cats:["Blonde"],free:false,age:27,location:"Oslo"},
+  {name:"Lizbeth",img:"https://cdn.onlymodels.com/li/zb/lizbetheden-b2b59.webp",cats:["Latina"],free:false,age:28,location:"Brussels"},
+  {name:"Mistress",img:"https://cdn.onlymodels.com/no/ir/noirsahara-dd57d.webp",cats:["Milf"],free:false,age:28,location:"Madrid"},
+  {name:"Soy Neiva",img:"https://cdn.onlymodels.com/so/yn/soyneiva-992be.webp",cats:["Latina"],free:false,age:25,location:"Athens"},
+  {name:"Karlee",img:"https://cdn.onlymodels.com/ka/rl/karleegrey-f0d8e.webp",cats:["Asian"],free:false,age:22,location:"Budapest"},
+  {name:"Kaitlyn",img:"https://cdn.onlymodels.com/ka/it/kaitkrems-0ed11.webp",cats:["Cosplay"],free:false,age:27,location:"Bucharest"},
+  {name:"Liz",img:"https://cdn.onlymodels.com/im/sa/imsadspice-bb6c9.webp",cats:["Celeb"],free:false,age:20,location:"Sofia"},
+  {name:"Mini Loonaa",img:"https://cdn.onlymodels.com/mi/ni/miniloonaa-eb134.webp",cats:["Teen"],free:false,age:19,location:"Zagreb"},
+  {name:"NoFaceMom",img:"https://cdn.onlymodels.com/no/fa/nofacemom77-5f2bb.webp",cats:["Free"],free:false,age:21,location:"Belgrade"},
+  {name:"Sal",img:"https://cdn.onlymodels.com/sa/lm/salmunozz-927e4.webp",cats:["Cosplay"],free:false,age:25,location:"Tallinn"},
+  {name:"lucy",img:"https://cdn.onlymodels.com/lu/ci/lucien-9b065.webp",cats:["Free"],free:false,age:25,location:"Riga"},
+  {name:"Ggsonlyxx",img:"https://cdn.onlymodels.com/gg/so/ggsonlyxx-f8b33.webp",cats:["Asian"],free:false,age:25,location:"Vilnius"},
+  {name:"lilianaheartsss",img:"https://cdn.onlymodels.com/li/li/lilianaheartsss-86d55.webp",cats:["Celeb"],free:false,age:27,location:"Reykjavik"},
+  {name:"PeachJars",img:"https://cdn.onlymodels.com/pe/ac/peachjars-3d497.webp",cats:["Latina"],free:false,age:27,location:"Luxembourg"},
+  {name:"Bigtittygothegg",img:"https://cdn.onlymodels.com/bi/gt/bigtittygothegg-8db05.webp",cats:["Tattoos"],free:false,age:19,location:"Monaco"},
+  {name:"ZartPrickelnd",img:"https://cdn.onlymodels.com/za/rt/zartprickelnd-1b4f5.webp",cats:["Free"],free:false,age:27,location:"Nice"},
+  {name:"Francety",img:"https://cdn.onlymodels.com/fr/an/francety-ec557.webp",cats:["Latina"],free:false,age:24,location:"Cannes"},
+  {name:"Ambs",img:"https://cdn.onlymodels.com/am/bs/ambsofficialxo-f5e85.webp",cats:["Free"],free:false,age:23,location:"Venice"},
+  {name:"Mia Monroe",img:"https://cdn.onlymodels.com/th/ec/thecollegestripper-46aec.webp",cats:["Milf"],free:false,age:21,location:"Florence"},
+  {name:"Janet",img:"https://cdn.onlymodels.com/li/ld/lildedjanet-7b642.webp",cats:["Celeb"],free:false,age:19,location:"Naples"},
+  {name:"Belle",img:"https://cdn.onlymodels.com/be/ll/belledelphine-9638b.webp",cats:["Celeb"],free:false,age:23,location:"Munich"},
+  {name:"ivy",img:"https://cdn.onlymodels.com/iv/yb/ivyballl-22a44.webp",cats:["Cosplay"],free:false,age:27,location:"Hamburg"},
+  {name:"Britt",img:"https://cdn.onlymodels.com/th/er/therealbrittfit-3e79c.webp",cats:["Tattoos"],free:false,age:20,location:"Cologne"},
+  {name:"Miss Lexa",img:"https://cdn.onlymodels.com/mi/ss/misslexa-04627.webp",cats:["Latina"],free:false,age:27,location:"Frankfurt"},
+  {name:"GRACIEBON",img:"https://cdn.onlymodels.com/gr/ac/graciebon1-537c6.webp",cats:["Blonde"],free:false,age:21,location:"Stuttgart"},
+  {name:"Scarlett",img:"https://cdn.onlymodels.com/sc/ar/scarlettkissesxo-eaf28.webp",cats:["Asian"],free:false,age:21,location:"Geneva"},
+  {name:"Sarah",img:"https://cdn.onlymodels.com/sa/ra/sarahhayes-b1bcd.webp",cats:["Teen"],free:false,age:28,location:"Bern"},
+  {name:"Dan Dangler",img:"https://cdn.onlymodels.com/th/ed/thedandangler-5ad70.webp",cats:["Asian"],free:false,age:26,location:"Salzburg"},
+  {name:"Emma Claire",img:"https://cdn.onlymodels.com/mi/dw/midwestemma-f65b3.webp",cats:["Teen"],free:false,age:20,location:"Innsbruck"},
+  {name:"Haley",img:"https://cdn.onlymodels.com/ha/ze/hazey_haley-5a233.webp",cats:["Asian"],free:false,age:23,location:"Brno"},
+  {name:"Autumn",img:"https://cdn.onlymodels.com/co/lo/colorsofautumn-bc5b5.webp",cats:["Blonde"],free:false,age:19,location:"Krakow"},
+  {name:"Skylar",img:"https://cdn.onlymodels.com/sk/yl/skylarxraee-7d264.webp",cats:["Blonde"],free:false,age:28,location:"Gdansk"},
+  {name:"Rubi Rose",img:"https://cdn.onlymodels.com/ru/bi/rubirose-86fc3.webp",cats:["Free"],free:false,age:20,location:"Debrecen"},
+  {name:"F1NN5TER",img:"https://cdn.onlymodels.com/f1/nn/f1nn5ter-8eadb.webp",cats:["Celeb"],free:false,age:20,location:"Cluj"},
+  {name:"Izzy Green",img:"https://cdn.onlymodels.com/iz/zy/izzygreen-14341.webp",cats:["Cosplay"],free:false,age:21,location:"Timisoara"},
+  {name:"Alinity",img:"https://cdn.onlymodels.com/al/in/alinity-4ff10.webp",cats:["Celeb"],free:false,age:27,location:"Plovdiv"},
+  {name:"Bryce",img:"https://cdn.onlymodels.com/fi/tb/fitbryceadams-6c51a.webp",cats:["Tattoos"],free:false,age:21,location:"Split"},
+  {name:"Lacie",img:"https://cdn.onlymodels.com/la/ci/lacie_may-b8a9a.webp",cats:["Latina"],free:false,age:27,location:"Novi Sad"},
+  {name:"Yuna",img:"https://cdn.onlymodels.com/yu/na/yunaof-3fd9b.webp",cats:["Asian"],free:false,age:28,location:"Sarajevo"},
+  {name:"Mia",img:"https://cdn.onlymodels.com/wa/if/waifumiia-a40bd.webp",cats:["Milf"],free:false,age:22,location:"Podgorica"},
+  {name:"Ava Addams",img:"https://cdn.onlymodels.com/av/aa/avaaddams-1d0c0.webp",cats:["Milf"],free:false,age:27,location:"Tirana"},
+  {name:"Lexi2Legit",img:"https://cdn.onlymodels.com/ho/t4/hot4lexi-d41de.webp",cats:["Blonde"],free:false,age:23,location:"Skopje"},
+  {name:"Sara Underwood",img:"https://cdn.onlymodels.com/sa/ra/saraunderwood-ae17f.webp",cats:["Milf"],free:false,age:24,location:"Tartu"},
+  {name:"Paige",img:"https://cdn.onlymodels.com/pa/ig/paigevanzantvip-50ac6.webp",cats:["Celeb"],free:false,age:26,location:"Jurmala"},
+  {name:"Jen Brett",img:"https://cdn.onlymodels.com/th/er/therealjenbretty-09bfe.webp",cats:["Celeb"],free:false,age:20,location:"Kaunas"},
+  {name:"Sunny",img:"https://cdn.onlymodels.com/su/nn/sunnyrayxo-21abc.webp",cats:["Blonde"],free:false,age:22,location:"Akureyri"},
+  {name:"Veronica",img:"https://cdn.onlymodels.com/ve/ro/veronicarosexox-e3e0c.webp",cats:["Free"],free:false,age:24,location:"Monte Carlo"},
+  {name:"Breckie",img:"https://cdn.onlymodels.com/br/ec/breckie-528ba.webp",cats:["Teen"],free:false,age:28,location:"Marseille"},
+  {name:"Faith",img:"https://cdn.onlymodels.com/fa/it/faithlianne-92127.webp",cats:["Blonde"],free:false,age:28,location:"Lyon"},
+  {name:"JadeTeen",img:"https://cdn.onlymodels.com/ja/de/jadeteen-752d1.webp",cats:["Teen"],free:false,age:22,location:"Toulouse"},
+  {name:"Kendra",img:"https://cdn.onlymodels.com/ke/nd/kendralust-4e70e.webp",cats:["Milf"],free:false,age:19,location:"Bordeaux"},
+  {name:"Audrey",img:"https://cdn.onlymodels.com/au/dr/audreyandsadie-8a2ba.webp",cats:["Free"],free:false,age:19,location:"Nantes"},
+  {name:"Tanababyxo",img:"https://cdn.onlymodels.com/ta/na/tanababyxo-1ca4a.webp",cats:["Blonde"],free:false,age:20,location:"Strasbourg"},
+  {name:"Lilmermaidxx",img:"https://cdn.onlymodels.com/li/lm/lilmermaidxx-5cb26.webp",cats:["Teen"],free:false,age:24,location:"Lille"},
+  {name:"Lexi2Legit",img:"https://cdn.onlymodels.com/ho/tt/hott4lexi-5a2cb.webp",cats:["Free"],free:false,age:27,location:"Rennes"},
+  {name:"Babe Bella",img:"https://cdn.onlymodels.com/ba/be/babebellalynn-e653c.webp",cats:["Blonde"],free:false,age:23,location:"Dijon"},
+  {name:"Faye",img:"https://cdn.onlymodels.com/fo/re/forestfaye-fc343.webp",cats:["Celeb"],free:false,age:22,location:"Valencia"},
+  {name:"Salice",img:"https://cdn.onlymodels.com/sa/li/salicerose-e460e.webp",cats:["Cosplay"],free:false,age:28,location:"Seville"},
+  {name:"Juliette",img:"https://cdn.onlymodels.com/bi/sh/bishoujomom-b9a6c.webp",cats:["Celeb"],free:false,age:22,location:"Malaga"},
+  {name:"Tee",img:"https://cdn.onlymodels.com/hi/my/himynamestee-3df6d.webp",cats:["Celeb"],free:false,age:25,location:"Bilbao"},
+  {name:"autumn",img:"https://cdn.onlymodels.com/au/tu/autumren-db9a6.webp",cats:["Teen"],free:false,age:22,location:"Granada"},
+  {name:"Sofia",img:"https://cdn.onlymodels.com/so/fi/sofiasilk-f2bda.webp",cats:["Free"],free:false,age:20,location:"Cordoba"},
+  {name:"Wettmelons",img:"https://cdn.onlymodels.com/we/tt/wettmelons-30c2e.webp",cats:["Milf"],free:false,age:24,location:"Toledo"},
+  {name:"Karely",img:"https://cdn.onlymodels.com/ka/re/karelyruizoficial-b323f.webp",cats:["Latina"],free:false,age:25,location:"Salamanca"},
+  {name:"Amber",img:"https://cdn.onlymodels.com/am/be/amberdanielsbabe-e454f.webp",cats:["Milf"],free:false,age:26,location:"Bologna"},
+  {name:"Sophie",img:"https://cdn.onlymodels.com/so/ph/sophieraiin-f4125.webp",cats:["Teen"],free:false,age:20,location:"Turin"},
+  {name:"Tris",img:"https://cdn.onlymodels.com/tr/is/tris_love-6441b.webp",cats:["Teen"],free:false,age:25,location:"Genoa"},
+  {name:"Bronwin",img:"https://cdn.onlymodels.com/br/on/bronwinaurora-52654.webp",cats:["Asian"],free:false,age:20,location:"Verona"},
+  {name:"Weejulietots",img:"https://cdn.onlymodels.com/we/ej/weejulietots-cd63e.webp",cats:["Blonde"],free:false,age:22,location:"Padua"},
+  {name:"Meowri",img:"https://cdn.onlymodels.com/je/nn/jennalynnmeowri-83f1e.webp",cats:["Blonde"],free:false,age:27,location:"Trieste"},
+  {name:"Mrs. Poindexter",img:"https://cdn.onlymodels.com/mr/sp/mrspoindexter-41c90.webp",cats:["Celeb"],free:false,age:21,location:"Bari"},
+  {name:"Natalie",img:"https://cdn.onlymodels.com/na/ta/nataliemonroe-e550d.webp",cats:["Milf"],free:false,age:21,location:"Catania"},
+  {name:"trippie",img:"https://cdn.onlymodels.com/tr/ip/trippie_bri-48d2d.webp",cats:["Latina"],free:false,age:26,location:"Stuttgart"},
+  {name:"Dainty",img:"https://cdn.onlymodels.com/da/in/daintywilder-93ced.webp",cats:["Blonde"],free:false,age:20,location:"Dusseldorf"},
+  {name:"Taylor",img:"https://cdn.onlymodels.com/ta/yl/taylorsdiary-6a93b.webp",cats:["Celeb"],free:false,age:27,location:"Leipzig"},
+  {name:"Sophie",img:"https://cdn.onlymodels.com/so/ph/sophiedee-209f2.webp",cats:["Milf"],free:false,age:20,location:"Dresden"},
+  {name:"Tati Evans",img:"https://cdn.onlymodels.com/ta/ti/tatievans-13f43.webp",cats:["Teen"],free:false,age:27,location:"Nuremberg"},
+  {name:"ANGELA",img:"https://cdn.onlymodels.com/an/ge/angelawhite-59715.webp",cats:["Milf", "Teen"],free:false,age:19,location:"Heidelberg"},
+  {name:"Tayler",img:"https://cdn.onlymodels.com/ta/yl/taylerhillss-25110.webp",cats:["Free"],free:false,age:22,location:"Freiburg"},
+  {name:"Livvalittle",img:"https://cdn.onlymodels.com/li/vv/livvalittle-cfb1c.webp",cats:["Cosplay"],free:false,age:25,location:"Aachen"},
+  {name:"Violet",img:"https://cdn.onlymodels.com/vi/ol/violetmyers-cfe5a.webp",cats:["Celeb"],free:false,age:26,location:"Bremen"},
+  {name:"Brittanya",img:"https://cdn.onlymodels.com/se/eb/seebrittanya-aa3ff.webp",cats:["Blonde"],free:false,age:25,location:"Hannover"},
+  {name:"Malu Trevejo",img:"https://cdn.onlymodels.com/ma/lu/malutrevejo18-c9e16.webp",cats:["Teen"],free:false,age:21,location:"Dortmund"},
+  {name:"Skye Marie",img:"https://cdn.onlymodels.com/sk/ye/skyemarie-12b88.webp",cats:["Milf"],free:false,age:19,location:"Essen"},
+  {name:"Peta",img:"https://cdn.onlymodels.com/po/we/power_midget-a7b9e.webp",cats:["Milf"],free:false,age:23,location:"Bonn"},
+  {name:"Jaylen",img:"https://cdn.onlymodels.com/li/tt/littletastey-209a6.webp",cats:["Celeb"],free:false,age:23,location:"Mannheim"},
+  {name:"Meg Turney",img:"https://cdn.onlymodels.com/me/gt/megturney-b2097.webp",cats:["Milf"],free:false,age:27,location:"Karlsruhe"},
+  {name:"Elsa Jean",img:"https://cdn.onlymodels.com/el/sa/elsadreamjean-5b1af.webp",cats:["Celeb"],free:false,age:21,location:"Saarbrucken"},
+  {name:"Stormi",img:"https://cdn.onlymodels.com/st/or/stormimaya-7aae6.webp",cats:["Blonde"],free:false,age:23,location:"Lucerne"},
+  {name:"Ruby Soho",img:"https://cdn.onlymodels.com/ru/by/ruby-soho-84071.webp",cats:["Blonde"],free:false,age:19,location:"Lausanne"},
+  {name:"Eva Lovia",img:"https://cdn.onlymodels.com/fa/ll/fallinlovia-40ce4.webp",cats:["Milf"],free:false,age:28,location:"Basel"},
+  {name:"fmottrn",img:"https://cdn.onlymodels.com/fm/ot/fmottrn-ba220.webp",cats:["Teen"],free:false,age:24,location:"Lugano"},
+  {name:"Khloe",img:"https://cdn.onlymodels.com/kh/lo/khlo_x-f8e35.webp",cats:["Teen"],free:false,age:19,location:"St. Moritz"},
+  {name:"Lauren",img:"https://cdn.onlymodels.com/la/ur/laurenalexisgold-82cf0.webp",cats:["Celeb"],free:false,age:27,location:"Interlaken"},
+  {name:"BRANDI",img:"https://cdn.onlymodels.com/br/an/brandi_raeex-1a961.webp",cats:["Milf"],free:false,age:27,location:"Zermatt"},
+  {name:"Madelynn",img:"https://cdn.onlymodels.com/ma/dd/maddiebubz-70c6b.webp",cats:["Cosplay"],free:false,age:19,location:"Grindelwald"},
+  {name:"Isla Moon",img:"https://cdn.onlymodels.com/is/la/isla-moon-920cb.webp",cats:["Free"],free:false,age:21,location:"Graz"},
+  {name:"Cristiana",img:"https://cdn.onlymodels.com/pl/ay/playgirlcris-3f09f.webp",cats:["Free"],free:false,age:28,location:"Linz"},
+  {name:"Elli",img:"https://cdn.onlymodels.com/pe/ti/petite_elli-cec6c.webp",cats:["Free"],free:false,age:22,location:"Innsbruck"},
+  {name:"Bigbootybaileyvip",img:"https://cdn.onlymodels.com/bi/gb/bigbootybaileyvip-753c6.webp",cats:["Milf"],free:false,age:20,location:"Klagenfurt"},
+  {name:"Anna Paul",img:"https://cdn.onlymodels.com/an/na/anna_paull-f9cf5.webp",cats:["Blonde"],free:false,age:28,location:"Salzburg"},
+  {name:"Brittany",img:"https://cdn.onlymodels.com/th/eb/thebrittanyxoxo-97cd2.webp",cats:["Teen"],free:false,age:28,location:"Bregenz"},
+  {name:"Eva Lovia",img:"https://cdn.onlymodels.com/ev/al/evalovia-4825a.webp",cats:["Free"],free:true,age:20,location:"Eisenstadt"},
+  {name:"Jaz",img:"https://cdn.onlymodels.com/me/ow/meowburst-bfa46.webp",cats:["Milf"],free:false,age:28,location:"St. Polten"},
+  {name:"Dani",img:"https://cdn.onlymodels.com/li/lt/lilthiccckk-6f382.webp",cats:["Asian"],free:false,age:23,location:"Wroclaw"},
+  {name:"lems",img:"https://cdn.onlymodels.com/le/ms/lems7-c779d.webp",cats:["Blonde"],free:false,age:24,location:"Poznan"},
+  {name:"Avva Ballerina",img:"https://cdn.onlymodels.com/av/va/avvaballerina-96de5.webp",cats:["Blonde"],free:false,age:23,location:"Gdansk"},
+  {name:"airikacal",img:"https://cdn.onlymodels.com/ai/ri/airikacal-a4ca2.webp",cats:["Milf"],free:false,age:21,location:"Szczecin"},
+  {name:"Mikayla",img:"https://cdn.onlymodels.com/mi/ka/mikayla_demaiter-974e0.webp",cats:["Latina"],free:false,age:26,location:"Bydgoszcz"},
+  {name:"ess <3",img:"https://cdn.onlymodels.com/es/sa/essaere-3b8f1.webp",cats:["Asian"],free:false,age:20,location:"Lublin"},
+  {name:"Charlie",img:"https://cdn.onlymodels.com/ch/ar/charlieerose3-9d26b.webp",cats:["Teen"],free:false,age:26,location:"Katowice"},
+  {name:"Misslee403",img:"https://cdn.onlymodels.com/mi/ss/misslee403-5ef62.webp",cats:["Free"],free:false,age:20,location:"Bialystok"},
+  {name:"Jessyyrenn",img:"https://cdn.onlymodels.com/je/ss/jessyyrenn-8f1d9.webp",cats:["Blonde"],free:false,age:27,location:"Ostrava"},
+  {name:"Renee",img:"https://cdn.onlymodels.com/re/ne/reneegracie-cfe5b.webp",cats:["Latina"],free:false,age:21,location:"Brno"},
+  {name:"Lauren",img:"https://cdn.onlymodels.com/la/ur/laurenjasmine-e455c.webp",cats:["Asian"],free:false,age:20,location:"Pilsen"},
+  {name:"Princessbabybratx",img:"https://cdn.onlymodels.com/pr/in/princessbabybratx-32a6f.webp",cats:["Blonde"],free:false,age:24,location:"Liberec"},
+  {name:"Just-wingit",img:"https://cdn.onlymodels.com/ju/st/just-wingit-605d1.webp",cats:["Latina"],free:false,age:21,location:"Olomouc"},
+  {name:"Lily Olsen",img:"https://cdn.onlymodels.com/th/el/thelilyolsen-00154.webp",cats:["Celeb"],free:false,age:27,location:"Opava"},
+  {name:"Bri Blossom",img:"https://cdn.onlymodels.com/br/ib/briblossomvip-12228.webp",cats:["Latina"],free:false,age:28,location:"Hradec Kralove"},
+  {name:"Bakharnabieva",img:"https://cdn.onlymodels.com/ba/kh/bakhar-184a9.webp",cats:["Teen"],free:false,age:27,location:"Usti nad Labem"},
+  {name:"WoeAlexandra",img:"https://cdn.onlymodels.com/wo/ea/woealexandra-93799.webp",cats:["Latina"],free:false,age:20,location:"Bratislava"},
+  {name:"Corinna",img:"https://cdn.onlymodels.com/co/ri/corinna-d0d6b.webp",cats:["Cosplay"],free:false,age:23,location:"Kosice"},
+  {name:"Mikaela",img:"https://cdn.onlymodels.com/mi/ka/mikaelatesta-e7164.webp",cats:["Free"],free:false,age:20,location:"Presov"},
+  {name:"Jessica",img:"https://cdn.onlymodels.com/je/ss/jessicanigri-4c869.webp",cats:["Cosplay"],free:false,age:27,location:"Zilina"},
+  {name:"Cocostar",img:"https://cdn.onlymodels.com/it/sc/itscocostar-e9c83.webp",cats:["Cosplay"],free:false,age:21,location:"Banska Bystrica"},
+  {name:"Shaylust",img:"https://cdn.onlymodels.com/sh/ay/shaylust-566c9.webp",cats:["Latina"],free:false,age:23,location:"Nitra"},
+  {name:"Luxlo",img:"https://cdn.onlymodels.com/lu/xl/luxlo-373e2.webp",cats:["Cosplay"],free:false,age:28,location:"Trnava"},
+  {name:"Brynn",img:"https://cdn.onlymodels.com/br/yn/brynnwoods-a0745.webp",cats:["Cosplay"],free:false,age:22,location:"Trencin"},
+  {name:"Lexi",img:"https://cdn.onlymodels.com/se/xy/sexylexxxyp-9c537.webp",cats:["Asian"],free:false,age:22,location:"Ljubljana"},
+  {name:"Lily Phillips",img:"https://cdn.onlymodels.com/li/ly/lilyphillips-c178c.webp",cats:["Latina"],free:false,age:27,location:"Maribor"},
+  {name:"ginasavagex",img:"https://cdn.onlymodels.com/gi/na/ginasavagex-866ff.webp",cats:["Celeb"],free:false,age:23,location:"Celje"},
+  {name:"Emma Magnolia",img:"https://cdn.onlymodels.com/em/ma/emmamagnoliaxo-c1fa8.webp",cats:["Teen"],free:false,age:20,location:"Kranj"},
+  {name:"Lauren",img:"https://cdn.onlymodels.com/la/ur/laurenelizabeth-8cf27.webp",cats:["Milf"],free:false,age:23,location:"Velenje"},
+  {name:"Cheryl",img:"https://cdn.onlymodels.com/ch/er/cherylann_gg-3036e.webp",cats:["Teen"],free:false,age:19,location:"Novo Mesto"},
+  {name:"Adriana",img:"https://cdn.onlymodels.com/ad/ri/adrianachechik-a5468.webp",cats:["Asian"],free:false,age:21,location:"Ptuj"},
+  {name:"DANI DANIELS",img:"https://cdn.onlymodels.com/ak/ad/akadanidaniels-347d7.webp",cats:["Latina"],free:false,age:21,location:"Koper"},
+  {name:"Laci Kay",img:"https://cdn.onlymodels.com/la/ci/lacikayvip-0b4af.webp",cats:["Celeb"],free:false,age:27,location:"Zagreb"},
+  {name:"Violet",img:"https://cdn.onlymodels.com/vi/ol/violetbrandani-293b5.webp",cats:["Milf"],free:false,age:27,location:"Split"},
+  {name:"Victoria",img:"https://cdn.onlymodels.com/ba/by/babymatosao-b50dd.webp",cats:["Teen"],free:false,age:20,location:"Rijeka"},
+  {name:"Rae",img:"https://cdn.onlymodels.com/xx/ra/xxraeted-f02f4.webp",cats:["Free"],free:false,age:21,location:"Osijek"},
+  {name:"Veronica",img:"https://cdn.onlymodels.com/ve/ro/veronicaperasso-f7156.webp",cats:["Teen"],free:false,age:24,location:"Zadar"},
+  {name:"Dakotah",img:"https://cdn.onlymodels.com/da/ko/dakotahblue-87cea.webp",cats:["Cosplay"],free:false,age:25,location:"Pula"},
+  {name:"Kimmy",img:"https://cdn.onlymodels.com/ki/mm/kimmygrangerxxx-b9bf3.webp",cats:["Cosplay"],free:false,age:19,location:"Dubrovnik"},
+  {name:"Miranda",img:"https://cdn.onlymodels.com/mi/ra/miranda_marie-cd732.webp",cats:["Latina"],free:false,age:24,location:"Sibenik"},
+  {name:"Abella",img:"https://cdn.onlymodels.com/ab/el/abelladanger-2b8d1.webp",cats:["Teen"],free:false,age:24,location:"Belgrade"},
+  {name:"UtahJaz",img:"https://cdn.onlymodels.com/ut/ah/utahjaz-a4155.webp",cats:["Blonde"],free:false,age:22,location:"Novi Sad"}
+];
+
+const FAQS = [
+  {q:"Is it really free to browse?", a:"Yes — browsing the entire directory of verified creators is 100% free. You only pay when you decide to engage with premium creator content directly."},
+  {q:"How are creators verified?", a:"Every creator goes through a multi-step ID verification, photo authenticity check, and ongoing review. Look for the magenta verified badge on each profile."},
+  {q:"Is my activity private?", a:"Absolutely. We use end-to-end encryption, anonymous billing descriptors, and never share your data with third parties. Your privacy is the product."},
+  {q:"How many people are using NaughtyList?", a:"Over 50,000 active members and 5,000+ verified creators worldwide. The community grows by ~1,200 new members every week."},
+  {q:"Can I cancel anytime?", a:"Yes. There is no commitment. You can pause, cancel, or delete your account in a single click — no questions, no retention calls."},
+  {q:"What's the minimum age requirement?", a:"You must be 18+ to access NaughtyList. We strictly enforce age verification at signup and across all creator profiles."}
+];
+
+const NAMES_TICKER = [
+  "Sarah from New York","James from London","Mia from Tokyo","Carlos from Mexico City",
+  "Ava from Toronto","Liam from Sydney","Sophia from Paris","Noah from Berlin",
+  "Isabella from Madrid","Ethan from Dubai"
+];
+
+const VERIFIED_SVG = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.918-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.337 2.25c-.416-.165-.866-.25-1.336-.25-2.21 0-3.918 1.79-3.918 4 0 .495.084.965.238 1.4-1.273.65-2.148 2.02-2.148 3.6 0 1.46.74 2.76 1.865 3.495-.084.34-.13.7-.13 1.06 0 2.21 1.71 3.998 3.918 3.998.47 0 .92-.084 1.336-.25.52 1.334 1.818 2.25 3.337 2.25s2.816-.917 3.337-2.25c.416.165.866.25 1.336.25 2.21 0 3.918-1.79 3.918-4 0-.36-.046-.72-.13-1.06 1.125-.735 1.865-2.035 1.865-3.495zm-10.46 3.535l-3.36-3.36 1.06-1.06 2.3 2.3 5.48-5.48 1.06 1.06-6.54 6.54z"/></svg>`;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let shuffled = shuffle(models);
+let activeFilter = "All";
+
+function renderGrid() {
+  const grid = document.getElementById("gridList");
+  const empty = document.getElementById("emptyState");
+  let list;
+  if (activeFilter === "All") list = shuffled;
+  else if (activeFilter === "Free") list = shuffled.filter(m => m.free);
+  else list = shuffled.filter(m => m.cats.includes(activeFilter));
+
+  empty.style.display = list.length === 0 ? "block" : "none";
+  grid.innerHTML = "";
+
+  list.forEach((m, i) => {
+    const card = document.createElement("a");
+    card.href = CTA;
+    card.className = "card-premium";
+    card.style.animationDelay = (i * 0.04) + "s";
+    card.innerHTML = `
+      <div class="card-image-wrapper">
+        <span class="badge-top"><span class="dot-live"></span> Live</span>
+        ${m.free ? '<span class="badge-side">FREE</span>' : ''}
+        <img src="${m.img}" class="card-image" alt="${m.name}" loading="lazy">
+        <div class="card-image-overlay">
+          <div class="overlay-cta">Open profile <i data-lucide="arrow-right"></i></div>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-name">
+          <span>${m.name}</span>
+          <span class="verified-badge" title="Verified">${VERIFIED_SVG}</span>
+          <span class="card-age">· ${m.age}</span>
+        </div>
+        <div class="card-location"><i data-lucide="map-pin"></i> ${m.location}</div>
+        <div class="card-viewers"><span class="dot-live"></span> ${2 + Math.floor(Math.random() * 27)} viewing now</div>
+        <div class="card-tags">
+          ${m.cats.slice(0,3).map(c => `<span class="tag">${c}</span>`).join('')}
+        </div>
+        <button class="message-btn" tabindex="-1"><i data-lucide="message-circle-heart"></i> Chat with ${m.name}</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  if (window.lucide) lucide.createIcons();
+}
+
+// FAQ render
+const faqList = document.getElementById("faqList");
+FAQS.forEach((f, i) => {
+  const item = document.createElement("div");
+  item.className = "faq-item" + (i === 0 ? " open" : "");
+  item.innerHTML = `
+    <button class="faq-q" aria-expanded="${i === 0}">
+      <span>${f.q}</span>
+      <i data-lucide="chevron-down" class="faq-chev"></i>
+    </button>
+    <div class="faq-a-wrap"><p class="faq-a">${f.a}</p></div>
+  `;
+  item.querySelector(".faq-q").addEventListener("click", () => {
+    item.classList.toggle("open");
+    const btn = item.querySelector(".faq-q");
+    btn.setAttribute("aria-expanded", item.classList.contains("open"));
+  });
+  faqList.appendChild(item);
+});
+
+// Filters
+document.querySelectorAll(".filter-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    const cat = chip.dataset.cat;
+    if (cat === "All") shuffled = shuffle(models);
+    activeFilter = cat;
+    renderGrid();
+  });
+});
+
+// Count up animation
+function countUp(el, target, duration) {
+  const t0 = performance.now();
+  function tick(t) {
+    const p = Math.min(1, (t - t0) / duration);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const val = Math.floor(eased * target);
+    el.textContent = val.toLocaleString() + (el.id === "statOnline" ? "" : "+");
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+setTimeout(() => {
+  countUp(document.getElementById("statMembers"), 54812, 1800);
+  countUp(document.getElementById("statCreators"), 5217, 1600);
+  countUp(document.getElementById("statOnline"), 1342, 1400);
+}, 400);
+
+// Header shrink + scroll-top button
+window.addEventListener("scroll", () => {
+  const header = document.getElementById("header");
+  const top = document.getElementById("scrollTop");
+  if (window.pageYOffset > 30) header.classList.add("is-shrunk");
+  else header.classList.remove("is-shrunk");
+  if (window.pageYOffset > 600) top.classList.add("visible");
+  else top.classList.remove("visible");
+});
+document.getElementById("scrollTop").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Social proof toast loop
+const toast = document.getElementById("toast");
+const toastName = document.getElementById("toastName");
+let toastIdx = 0;
+function cycleToast() {
+  toast.classList.add("in");
+  setTimeout(() => toast.classList.remove("in"), 4500);
+  setTimeout(() => {
+    toastIdx = (toastIdx + 1) % NAMES_TICKER.length;
+    toastName.textContent = NAMES_TICKER[toastIdx];
+  }, 5500);
+}
+setTimeout(() => {
+  cycleToast();
+  setInterval(cycleToast, 7500);
+}, 3500);
+
+// Init
+renderGrid();
+if (window.lucide) lucide.createIcons();
+</script>
+</body>
+</html>
+
